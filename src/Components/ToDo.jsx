@@ -3,30 +3,30 @@ import { MdDelete, MdCheck } from "react-icons/md";
 
 const ToDo = () => {
   const [input, setInput] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [data, setData] = useState([]);
 
   const handleAdd = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Avoid duplicate tasks
-    if (tasks.some((task) => task.text === input.trim())) {
+    // Avoid duplicate data
+    if (data.some((value) => value.text === input.trim())) {
       setInput("");
       return;
     }
 
-    setTasks([...tasks, { text: input.trim(), done: false }]);
+    setData([...data, { text: input.trim(), done: false }]);
     setInput("");
   };
 
   const handleDelete = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index));
+    setData(data.filter((_, i) => i !== index));
   };
 
   const handleDone = (index) => {
-    const updated = [...tasks];
+    const updated = [...data];
     updated[index].done = !updated[index].done;
-    setTasks(updated);
+    setData(updated);
   };
 
   return (
@@ -36,7 +36,7 @@ const ToDo = () => {
       <form onSubmit={handleAdd} className="flex mb-4">
         <input
           type="text"
-          placeholder="Create your task"
+          placeholder="Create your data"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 p-2 rounded text-[#212121] bg-white"
@@ -47,10 +47,10 @@ const ToDo = () => {
       </form>
 
       <ul className="space-y-2">
-        {tasks.map((task, index) => (
+        {data.map((value, index) => (
           <li key={index} className="flex justify-between items-center bg-gray-600 p-2 rounded">
-            <span className={task.done ? "line-through text-green-300" : ""}>
-              {task.text}
+            <span className={value.done ? "line-through text-green-300" : ""}>
+              {value.text}
             </span>
             <div className="flex space-x-2">
               <button onClick={() => handleDone(index)} className="text-green-400">
